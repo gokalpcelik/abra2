@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class ChromosomeRegex {
 	
-	public static final String DEFAULT_SKIP_REGEX = "GL.*|hs37d5|chr.*random|chrUn.*|chrEBV|CMV|HBV|HCV.*|HIV.*|KSHV|HTLV.*|MCV|SV40|HPV.*";
+	public static final String DEFAULT_SKIP_REGEX = "GL.*|hs37d5|chr.*random|chrUn.*|chrEBV|CMV|HBV|HCV.*|HIV.*|KSHV|HTLV.*|MCV|SV40|HPV.*|HLA.*|chrUn.*decoy|chr.*alt";
 	
 	private static Pattern p = null;
 	
