@@ -158,6 +158,8 @@ public class ReAligner {
 	private boolean isGappedContigsOnly;
 	private boolean shouldUseJunctionsAsContigs;
 	private boolean disallowComplexIndelsAtReadEdge;
+
+	private static long REGION_PADDING;
 	
 	public void reAlign(String[] inputFiles, String[] outputFiles) throws Exception {
 		
@@ -1324,6 +1326,7 @@ public class ReAligner {
 	
 	static List<Feature> getRegions(String regionsBed, int readLength, boolean hasPresetKmers) throws IOException {
 		RegionLoader loader = new RegionLoader();
+		loader.padding = REGION_PADDING;
 		List<Feature> regions = loader.load(regionsBed, hasPresetKmers);
 		if (regions.size() > 0 && (regions.get(0).getKmer() == 0)) {
 			regions = RegionLoader.collapseRegions(regions, readLength);
@@ -1802,7 +1805,9 @@ public class ReAligner {
 			realigner.isGappedContigsOnly = options.isGappedContigsOnly();
 			realigner.shouldUseJunctionsAsContigs = options.shouldUseJunctionsAsContigs();
 			realigner.disallowComplexIndelsAtReadEdge = options.disallowComplexIndelsAtReadEdge();
-			
+						
+
+			REGION_PADDING = options.getRegionPadding();
 			MAX_REGION_LENGTH = options.getWindowSize();
 			MIN_REGION_REMAINDER = options.getWindowOverlap();
 			REGION_OVERLAP = options.getWindowOverlap();

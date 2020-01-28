@@ -21,6 +21,8 @@ public class RegionLoader {
 	private static final int BED_END_IDX = 2;
 	private static final int KMER_SIZE_IDX = 3;
 
+	protected long padding = 0;
+
 	public List<Feature> load(String regionFile, boolean hasPresetKmers) throws FileNotFoundException, IOException {
 		List<Feature> features = new ArrayList<Feature>();
 		
@@ -46,8 +48,8 @@ public class RegionLoader {
 				String[] fields = line.split("\t");
 				
 				String chromosome = fields[SEQNAME_IDX];
-				long startPos = Long.valueOf(fields[start]);
-				long endPos = Long.valueOf(fields[end]);
+				long startPos = Long.valueOf(fields[start])-padding;
+				long endPos = Long.valueOf(fields[end])+padding;
 				
 				if (startPos > endPos) {
 					throw new IllegalArgumentException("Region end must be greater than region start in target BED file: " + line);
